@@ -37,12 +37,15 @@ const getPokemos = async (API) => {
             
                 const pokemon = await res.json();
 
+                console.log(pokemon);
+
                 const $nameText = pokemon.name;
                 const $imgUrl = pokemon.sprites.front_default;
                 const $figure = d.createElement('figure'),
                 $img = d.createElement('img'),
                 $figcaption = d.createElement('figcaption');
                 $figure.classList.add('poke-card--container-grid');
+                $figcaption.classList.add('figcaption--poke-card');
                 $img.src = $imgUrl;
                 $img.alt = $nameText;
                 $figcaption.textContent = $nameText;
