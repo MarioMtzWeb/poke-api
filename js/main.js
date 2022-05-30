@@ -2,7 +2,13 @@
 const d = document;
 let $main = d.querySelector('main'),
 $navLinks = d.querySelector('.container-links'),
-pokeAPI = "https://pokeapi.co/api/v2/pokemon";
+pokeAPI = "https://pokeapi.co/api/v2/pokemon",
+dbPokemons = [];
+
+
+const createModalPokemon = (data) => {
+    console.log(data);
+}
 
 const getPokemos = async (API) => {
     $main.innerHTML = `
@@ -13,7 +19,8 @@ const getPokemos = async (API) => {
         if(!res.ok) throw {status: res.status, statusText: res.statusText};
         const json = await res.json();
         const $fragment = d.createDocumentFragment();
-
+        let pokemons = [];
+        
         let prevPage = json.previous;
         let nextPage = json.next;
         
@@ -37,7 +44,7 @@ const getPokemos = async (API) => {
             
                 const pokemon = await res.json();
 
-                console.log(pokemon);
+                pokemons.push(pokemon);
 
                 const $nameText = pokemon.name;
                 const $imgUrl = pokemon.sprites.front_default;
@@ -46,6 +53,7 @@ const getPokemos = async (API) => {
                 $figcaption = d.createElement('figcaption');
                 $figure.classList.add('poke-card--container-grid');
                 $figcaption.classList.add('figcaption--poke-card');
+                $figure.dataset.id = i;
                 $img.src = $imgUrl;
                 $img.alt = $nameText;
                 $figcaption.textContent = $nameText;
@@ -62,6 +70,7 @@ const getPokemos = async (API) => {
                 </figure>`;
             }   
         }
+        dbPokemons = [...pokemons];
         $main.innerHTML = '';
         $main.appendChild($fragment);
     }catch(err) {
@@ -72,9 +81,15 @@ const getPokemos = async (API) => {
 d.addEventListener('DOMContentLoaded' , getPokemos(pokeAPI));
 
 d.addEventListener('click', e => {
-
+    
     if(e.target.matches('.btn-link--nav')){
         const page = e.target.dataset.page;
         getPokemos(page);
+    }
+
+    if(e.target.matches('.poke-card--container-grid *')){
+        let id = Number(e.target.parentNode.getAttribute('data-id'));
+        createModalPokemon(dbPokemons[id]);
+        console.log(id);
     }
 });
