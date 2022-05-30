@@ -1,0 +1,48 @@
+html {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    margin: 0;
+    text-align: center;
+}
+
+.container-grid {
+    width: 100%;
+    min-height: 80vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}
+.loader {
+    width: 100px;
+    height: 100px;
+}
+.btn-link--nav {
+    font-weight: bolder;
+    border: none;
+    border: thin solid #fff;
+    background-color: #3498db;
+    color: #ffF;
+    cursor: pointer;
+}
+.poke-card--container-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
