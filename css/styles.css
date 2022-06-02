@@ -23,7 +23,42 @@ body {
     text-align: center;
     background-color: #E3350D;
 }
-
+.search-container {
+    width: 100%;
+    margin-top: 1rem;
+}
+.form-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.input-search {
+    width: 100%;
+    max-width: 270px;
+    margin-bottom: .5rem;
+    padding: .5rem;
+    font-size: 1.2rem;
+    text-align: center;
+    border-radius: 5px;
+    border: medium solid #3498db;
+    outline-color: #E3350D;
+}
+.btn-submit {
+    font-weight: bolder;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 5px;
+    border: thin solid #fff;
+    background-color: #3498db;
+    color: #ffF;
+    transition: background-color .3s ease, color .3s ease;
+    cursor: pointer;
+}
+.btn-submit:hover {
+    background-color: #fff;
+    color: #3498db;
+}
 .container-grid {
     width: 100%;
     min-height: 80vh;
@@ -79,3 +114,39 @@ body {
     font-weight: bolder;
     color: #fff;
 }
+
+/*------ Modal pokemon ------*/
+.modal-pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0008;
+}
+.container-modal-pokemon {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #fff;
+}
+.img-modal-pokemon {
+    width: 300px;
+}
+.btn-modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.2rem;
+    border: none;
+    color: #f00;
+    background-color: transparent;
+    cursor: pointer;
+}
+/*Fin de Modal pokemon*/

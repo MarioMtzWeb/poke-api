@@ -3,11 +3,37 @@ const d = document;
 let $main = d.querySelector('main'),
 $navLinks = d.querySelector('.container-links'),
 pokeAPI = "https://pokeapi.co/api/v2/pokemon",
-dbPokemons = [];
+dbPokemons = [],
+$form = d.querySelector('.form-search');
 
+
+const searchPokemon = (form) => {
+    return form.search.value;
+};  
 
 const createModalPokemon = (data) => {
-    console.log(data);
+    const $container = d.createElement('div'),
+    $pokeContainer = d.createElement('div'),
+    $btnClose = d.createElement('button'),
+    $ul = d.createElement('ul');
+    $img = d.createElement('img');
+    $btnClose.textContent = 'X';
+    $ul.innerHTML = `
+        <li> Altura: ${data.weight} cm </li>
+        <li> Peso: ${data.height} kg </li>
+        <li> Tipo: ${data.types[0].type.name} </li> 
+    `;
+    $img.src = data.sprites.front_default;
+    $container.appendChild($pokeContainer);
+    $pokeContainer.appendChild($img);
+    $pokeContainer.appendChild($ul);
+    $pokeContainer.appendChild($btnClose);
+    $btnClose.classList.add('btn-modal-close');
+    $img.classList.add('img-modal-pokemon');
+    $pokeContainer.classList.add('container-modal-pokemon');
+    $container.classList.add('modal-pokemon');
+
+    d.body.appendChild($container);
 }
 
 const getPokemos = async (API) => {
@@ -92,4 +118,35 @@ d.addEventListener('click', e => {
         createModalPokemon(dbPokemons[id]);
         console.log(id);
     }
+    if(e.target.matches('.btn-modal-close')){
+        console.log('Cerrar');
+        e.target.parentNode.parentNode.remove();
+    }
+});
+
+d.addEventListener('submit', e => {
+    
+    e.preventDefault();
+    
+    if(!$form.search.value){
+        alert('Ingrese un nombre');
+        return;
+    };
+    
+    let search = searchPokemon($form);
+
+    fetch(`${pokeAPI}/${search.toLowerCase()}`)
+        .then( res => {
+            return res.json();
+        })
+        .then( data => {
+            console.log(data);
+            createModalPokemon(data);
+        })
+        .catch( err => {
+            console.log(err);
+        });
+
+    $form.search.value = '';
+    
 });
